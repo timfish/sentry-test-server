@@ -20,7 +20,7 @@ async fn envelope(
     state: web::Data<AppState>,
 ) -> impl Responder {
     let envelope = Envelope::from_slice(&req_body).expect("invalid envelope");
-    println!("{:#?}", envelope);
+
     state
         .envelope_tx
         .send(envelope)
@@ -49,6 +49,22 @@ where
     actix_rt::spawn(async move { server.await });
 
     Ok(envelope_rx)
+}
+
+pub fn to_json(env: &Envelope) -> serde_json::Result<String> {
+    serde_json::to_string(
+        &env.items()
+            .map(EnvelopeItemSerialisable::from)
+            .collect::<Vec<_>>(),
+    )
+}
+
+pub fn to_json_pretty(env: &Envelope) -> serde_json::Result<String> {
+    serde_json::to_string_pretty(
+        &env.items()
+            .map(EnvelopeItemSerialisable::from)
+            .collect::<Vec<_>>(),
+    )
 }
 
 // Since these type are not serialisable in sentry-types, we need to duplicate them here.
