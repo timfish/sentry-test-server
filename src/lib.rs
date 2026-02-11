@@ -128,7 +128,7 @@ impl From<&EnvelopeItem> for EnvelopeItemSerialisable {
                 length: attachment.buffer.len() as u64,
                 filename: attachment.filename.clone(),
                 content_type: attachment.content_type.clone(),
-                ty: attachment.ty.map(|ty| ty.as_str().to_string()),
+                ty: attachment.ty.as_ref().map(|ty| ty.as_str().to_string()),
             }),
             _ => todo!(),
         }
