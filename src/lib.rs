@@ -120,10 +120,10 @@ pub enum EnvelopeItemSerialisable {
 impl From<&EnvelopeItem> for EnvelopeItemSerialisable {
     fn from(item: &EnvelopeItem) -> Self {
         match item {
-            EnvelopeItem::Event(event) => Self::Event(event.clone()),
+            EnvelopeItem::Event(event) => Self::Event(*event.clone()),
             EnvelopeItem::SessionUpdate(session) => Self::SessionUpdate(session.clone()),
             EnvelopeItem::SessionAggregates(session) => Self::SessionAggregates(session.clone()),
-            EnvelopeItem::Transaction(transaction) => Self::Transaction(transaction.clone()),
+            EnvelopeItem::Transaction(transaction) => Self::Transaction(*transaction.clone()),
             EnvelopeItem::Attachment(attachment) => Self::Attachment(AttachmentSerialisable {
                 length: attachment.buffer.len() as u64,
                 filename: attachment.filename.clone(),

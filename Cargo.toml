@@ -4,7 +4,7 @@ name = "sentry-test-server"
 version = "0.1.0"
 
 [dependencies]
-actix-rt = "2.10"
+actix-rt = "2.11"
 actix-web = "4"
 crossbeam-channel = "0.5"
 sentry-types = "*"
